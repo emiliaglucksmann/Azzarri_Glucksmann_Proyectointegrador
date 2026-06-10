@@ -1,4 +1,4 @@
-import { auth, db } from './firebase/config';
+import { auth, db } from "../firebase/config";
 import { View, Text, StyleSheet, Pressable, TextInput } from "react-native";
 import { useEffect, useState } from "react";
 
@@ -39,7 +39,7 @@ function Registro (props){
             auth.onAuthStateChanged(
                 user => {
                     if (user) {
-                        props.navigation.navigate("HomeMenu")
+                        props.navigation.navigate("Login")
                     }
                 }
             )

@@ -30,7 +30,7 @@ function Login(props){
             console.log("LOGIN CORRECTO");
             setLogin(true);
 
-            props.navigation.navigate("HomeMenu");
+            props.navigation.navigate("HomeMenue");
         })
         .catch(error => {
             console.log(error);
@@ -43,7 +43,7 @@ function Login(props){
             auth.onAuthStateChanged(
                 user => {
                     if(user){
-                        props.navigation.navigate("HomeMenu");
+                        props.navigation.navigate("HomeMenue");
                     }
                 }
             )
