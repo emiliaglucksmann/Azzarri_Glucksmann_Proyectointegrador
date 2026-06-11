@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet, FlatList } from "react-native";
 import { useState, useEffect } from "react";
 import { db } from "../firebase/config";
 import CrearPosteo from "./CrearPosteo";
@@ -30,8 +30,12 @@ function Home (){
                 keyExtractor={(item) => item.id}
                 renderItem={({item}) => (
                     <Likes datos={item.data} id={item.id}/>
+    
                 )}
-            />
+           />
+            <Pressable onPress={() => props.navigation.navigate("ComentarPosteo", {id: item.id})}>
+        <Text>Comentar</Text>
+    </Pressable>
         </View>
     </View>
     

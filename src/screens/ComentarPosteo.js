@@ -9,41 +9,47 @@ function ComentarPosteo(props){
 
     const postId = props.route.params.id
 
-    function onSubmit(){
+    function guardarComentario(){
 
-        db.collection("comments")
-        .add({
+        db.collection('comments').add({
             postId: postId,
-            owner: auth.currentUser.email,
+            email: auth.currentUser.email,
             comentario: comentario,
             createdAt: Date.now()
         })
+
         .then(() => {
+            console.log("COMENTARIO GUARDADO")
             setComentario("")
         })
+
         .catch(error => console.log(error))
     }
 
-    useEffect(
-        () => {
-            db.collection("comments")
-            .where("postId","==",postId)
-            .onSnapshot(snapshot => {
+    useEffect(() => {
 
-                let comentariosDelPost = []
+        db.collection('comments').onSnapshot(docs => {
 
-                snapshot.forEach(doc =>
-                    comentariosDelPost.push({
+            let comentariosPost = []
+
+            docs.forEach(doc => {
+
+                if(doc.data().postId === postId){
+
+                    comentariosPost.push({
                         id: doc.id,
-                        datos: doc.data()
+                        data: doc.data()
                     })
-                )
 
-                setComentarios(comentariosDelPost)
+                }
+
             })
-        },
-        []
-    )
+
+            setComentarios(comentariosPost)
+
+        })
+
+    }, [])
 
     return(
         <View style={styles.container}>
@@ -54,14 +60,15 @@ function ComentarPosteo(props){
 
             <TextInput
                 style={styles.input}
-                placeholder="Escribí un comentario"
-                value={comentario}
+                keyboardType='default'
+                placeholder='comentario'
                 onChangeText={text => setComentario(text)}
+                value={comentario}
             />
-
+            
             <Pressable
+                onPress={() => guardarComentario()}
                 style={styles.boton}
-                onPress={() => onSubmit()}
             >
                 <Text style={styles.textoBoton}>
                     Enviar
@@ -70,17 +77,52 @@ function ComentarPosteo(props){
 
             <FlatList
                 data={comentarios}
-                keyExtractor={item => item.id}
-                renderItem={({item}) =>
+                keyExtractor={(item) => item.id}
+                renderItem={({item}) => (
                     <View>
-                        <Text>{item.datos.owner}</Text>
-                        <Text>{item.datos.comentario}</Text>
+                        <Text>{item.data.email}</Text>
+                        <Text>{item.data.comentario}</Text>
                     </View>
-                }
+                )}
             />
 
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        paddingHorizontal: 10,
+    },
+
+    titulo: {
+        fontSize: 30,
+        textAlign: "center",
+        marginTop: 10
+    },
+
+    input: {
+        height: 20,
+        paddingVertical: 15,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        marginVertical: 10,
+    },
+
+    boton: {
+        backgroundColor: '#28a745',
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        alignItems: 'center',
+    },
+
+    textoBoton: {
+        textAlign: "center",
+        fontSize: 18,
+        color: '#fff',
+        marginTop: 10,
+        marginBottom: 10
+    }
+})
 
 export default ComentarPosteo
