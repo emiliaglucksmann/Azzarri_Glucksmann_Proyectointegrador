@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Registro from './src/screens/Registro';
 import Login from './src/screens/Login'
 import HomeMenue from './src/components/HomeMenue';
+import ComentarPosteo from './src/screens/ComentarPosteo';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ export default function App() {
         <Stack.Screen name='Registro' component={Registro} options={{ headerShown: false }}/>
         <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
         <Stack.Screen name='HomeMenue' component={HomeMenue} options={{ headerShown: false }}/>
+        <Stack.Screen name='ComentarPosteo' component={ComentarPosteo} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
    </View>

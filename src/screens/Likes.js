@@ -51,6 +51,9 @@ if(props.datos.likes.includes(auth.currentUser.email)){
 
             <View>
                 {boton}
+                <Pressable onPress={() => props.navigation.navigate("ComentarPosteo", {id: props.id})} style={styles.boton} >
+                    <Text style={styles.textoBoton}> Comentar </Text>
+                </Pressable>
             </View>
         </View>
     )
