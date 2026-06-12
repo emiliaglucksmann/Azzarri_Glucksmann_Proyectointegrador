@@ -74,7 +74,7 @@ function ComentarPosteo(props){
                     Enviar
                 </Text>
             </Pressable>
-            {comentario?
+            {comentarios.data?
             <FlatList
                 data={comentarios.data.comentario}
                 keyExtractor={(item) => item.id}
