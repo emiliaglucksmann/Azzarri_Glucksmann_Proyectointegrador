@@ -37,7 +37,7 @@ function MiPerfil(props){
         <View style={styles.container}>
 
             <Text style={styles.nombre}>
-                {auth.currentUser.email}
+                {auth.currentUser.userName}
             </Text>
 
             <Text style={styles.email}>

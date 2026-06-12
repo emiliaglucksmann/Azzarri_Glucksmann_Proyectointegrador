@@ -1,21 +1,20 @@
 import { View, Text, Pressable, StyleSheet, TextInput, FlatList } from "react-native";
 import { useState, useEffect } from "react";
 import { db, auth } from "../firebase/config";
+import firebase from "firebase";
 
 function ComentarPosteo(props){
 
     const [comentario, setComentario] = useState("")
     const [comentarios, setComentarios] = useState([])
 
-    const postId = props.route.params.id
-
     function guardarComentario(){
 
-        db.collection('comments').add({
-            postId: postId,
-            email: auth.currentUser.email,
-            comentario: comentario,
-            createdAt: Date.now()
+        db.collection('posts').doc(props.route.params.id).update({
+            comentario: firebase.firestore.FieldValue.arrayUnion({
+                owner: auth.currentUser.email,
+                comentario: comentario
+            })
         })
 
         .then(() => {
@@ -28,24 +27,25 @@ function ComentarPosteo(props){
 
     useEffect(() => {
 
-        db.collection('comments').onSnapshot(docs => {
+        db.collection('posts').onSnapshot(docs => {
 
             let comentariosPost = []
 
             docs.forEach(doc => {
 
-                if(doc.data().postId === postId){
+                if(doc.id === props.route.params.id){
 
-                    comentariosPost.push({
+                    comentariosPost={
                         id: doc.id,
                         data: doc.data()
-                    })
+                    }
 
                 }
 
             })
 
             setComentarios(comentariosPost)
+            console.log(comentarios)
 
         })
 
@@ -74,17 +74,18 @@ function ComentarPosteo(props){
                     Enviar
                 </Text>
             </Pressable>
-
+            {comentario?
             <FlatList
-                data={comentarios}
+                data={comentarios.data.comentario}
                 keyExtractor={(item) => item.id}
                 renderItem={({item}) => (
                     <View>
-                        <Text>{item.data.email}</Text>
-                        <Text>{item.data.comentario}</Text>
+                        <Text>{item.owner}</Text>
+                        <Text>{item.comentario}</Text>
                     </View>
                 )}
-            />
+            /> : <Text>No hay comentarios</Text>
+            }
 
         </View>
     )

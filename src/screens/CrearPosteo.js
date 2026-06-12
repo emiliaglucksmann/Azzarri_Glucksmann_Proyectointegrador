@@ -22,6 +22,19 @@ function CrearPosteo(props){
         .catch(error => console.log(error))
     }
 
+    useEffect(
+        () => {
+            auth.onAuthStateChanged(
+                user => {
+                    if (!user) {
+                        props.navigation.navigate("Login")
+                    }
+                }
+            )
+        },
+        []
+    )
+
     return(
         <View style={styles.container}>
 
