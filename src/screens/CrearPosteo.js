@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Pressable, TextInput } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { db, auth } from "../firebase/config";
 
 function CrearPosteo(props){
