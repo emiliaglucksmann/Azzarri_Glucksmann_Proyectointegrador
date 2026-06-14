@@ -79,10 +79,10 @@ function ComentarPosteo(props){
                 data={comentarios.data.comentario}
                 keyExtractor={(item) => item.id}
                 renderItem={({item}) => (
-                    <View>
-                        <Text>{item.owner}</Text>
-                        <Text>{item.comentario}</Text>
-                    </View>
+                    <View style={styles.box}>
+                        <Text style={styles.inputC}>{item.owner}</Text>
+                        <Text style={styles.inputC}>{item.comentario}</Text>
+                    </View> 
                 )}
             /> : <Text>No hay comentarios</Text>
             }
@@ -105,9 +105,25 @@ const styles = StyleSheet.create({
     input: {
         height: 20,
         paddingVertical: 15,
-        borderWidth: 1,
         borderColor: '#ccc',
-        marginVertical: 10,
+        marginTop:5,
+        marginBottom: 5,
+        borderWidth:1,
+    },
+
+    inputC: {
+        height: 20,
+        paddingVertical: 15,
+        borderColor: '#ccc',
+        marginTop:5,
+        marginBottom: 5
+    },
+
+    box:{
+        borderWidth:1,
+        borderColor:"#ccc",
+        marginTop:5,
+        marginBottom: 5
     },
 
     boton: {

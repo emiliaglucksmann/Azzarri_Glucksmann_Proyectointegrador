@@ -6,6 +6,7 @@ import Likes from "./Likes";
 function MiPerfil(props){
 
     const [posts, setPosts] = useState([]);
+    const [userName, setUserName] = useState("")
 
     useEffect(() => {
         db.collection("posts").onSnapshot(docs => {

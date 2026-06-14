@@ -1,10 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import Home from '../screens/Home';
 import ComentarPosteo from '../screens/ComentarPosteo';
-
-//importar home y comentar
 
 const Stack = createNativeStackNavigator();
 

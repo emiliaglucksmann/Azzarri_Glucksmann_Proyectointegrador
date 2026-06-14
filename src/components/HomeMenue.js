@@ -1,9 +1,4 @@
-//tab: StackScreen con home y comentaer
-// crear posteo y perfil
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// agregar import post y perfil stackscreen
-import { FontAwesome } from '@expo/vector-icons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import CrearPosteo from '../screens/CrearPosteo';
