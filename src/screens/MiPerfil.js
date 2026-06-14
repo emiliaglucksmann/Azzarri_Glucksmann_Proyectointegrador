@@ -67,12 +67,14 @@ function MiPerfil(props){
 
             <Text style={styles.titulo}>Mis posteos</Text>
 
-          <FlatList data={posts} keyExtractor={(item) => item.id} renderItem={({ item }) => (
+          <FlatList 
+            data={posts} 
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
             <Likes
             datos={item.data}
             id={item.id}
-            navigation={props.navigation}
-        />
+            navigation={props.navigation}/>
     )}
 />
 
