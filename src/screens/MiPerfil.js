@@ -27,6 +27,26 @@ function MiPerfil(props){
             setPosts(misPosts)
 
         })
+         db.collection("users").onSnapshot(docs => {
+
+        let usuarios = [];
+
+        docs.forEach(doc => {
+            usuarios.push({
+                id: doc.id,
+                data: doc.data()
+            })
+        })
+
+        let miUsuario = usuarios.filter(function(usuario){
+            return usuario.data.email === auth.currentUser.email
+        })
+
+        if(miUsuario.length > 0){
+            setUserName(miUsuario[0].data.userName)
+        }
+    })
+
     }, [])
 
    function logout(){
@@ -38,7 +58,7 @@ function MiPerfil(props){
         <View style={styles.container}>
 
             <Text style={styles.nombre}>
-                {auth.currentUser.userName}
+                {userName}
             </Text>
 
             <Text style={styles.email}>
