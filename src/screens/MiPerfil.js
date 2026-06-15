@@ -8,46 +8,35 @@ function MiPerfil(props){
     const [posts, setPosts] = useState([]);
     const [userName, setUserName] = useState("")
 
-    useEffect(() => {
-        db.collection("posts").onSnapshot(docs => {
+useEffect(() => {
 
-            let posteos = [];
+    db.collection("posts")
+    .where("email", "==", auth.currentUser.email)
+    .onSnapshot(docs => {
 
-            docs.forEach(doc => {
-                posteos.push({
-                    id: doc.id,
-                    data: doc.data()
-                })
-            })
-
-            let misPosts = posteos.filter(function(post){
-                return post.data.email === auth.currentUser.email
-            })
-
-            setPosts(misPosts)
-
-        })
-         db.collection("users").onSnapshot(docs => {
-
-        let usuarios = [];
+        let posteos = [];
 
         docs.forEach(doc => {
-            usuarios.push({
+            posteos.push({
                 id: doc.id,
                 data: doc.data()
             })
         })
 
-        let miUsuario = usuarios.filter(function(usuario){
-            return usuario.data.email === auth.currentUser.email
-        })
-
-        if(miUsuario.length > 0){
-            setUserName(miUsuario[0].data.userName)
-        }
+        setPosts(posteos)
     })
 
-    }, [])
+    db.collection("users")
+    .where("email", "==", auth.currentUser.email)
+    .onSnapshot(docs => {
+
+        docs.forEach(doc => {
+            setUserName(doc.data().userName)
+        })
+
+    })
+
+}, [])
 
    function logout(){
         auth.signOut()
