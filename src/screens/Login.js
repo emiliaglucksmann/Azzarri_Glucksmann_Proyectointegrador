@@ -19,12 +19,6 @@ function Login(props){
             return;
         }
 
-        if(password.length < 6){
-            setLoginError("La password debe tener una longitud mínima de 6 caracteres");
-            alert("La password debe tener una longitud mínima de 6 caracteres");
-            return;
-        }
-
         auth.signInWithEmailAndPassword(email, password)
         .then(response => {
             console.log("LOGIN CORRECTO");
